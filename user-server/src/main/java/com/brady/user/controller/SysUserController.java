@@ -16,21 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class SysUserController implements SysUserApi {
 
-    @Override
+    /*@Override
     public boolean login(@Validated @RequestBody SysUserDTO.LoginDTO dto) {
         log.info("login---------------------");
         return true;
     }
 
     @Override
-    public String userLogin(@Validated @RequestBody SysUserDTO.LoginDTO dto) {
-        String s = dto.getNickname() + "-------------" + dto.getPassword();
+    public String userLogin(SysUserDTO.LoginDTO dto) {
+        String s = dto.getUsername() + "------userLogin-------" + dto.getPassword();
         return s;
     }
 
     @Override
     public String adminLogin(@Validated @RequestBody SysUserDTO.LoginDTO dto) {
-        String s = dto.getNickname() + "-------------" + dto.getPassword();
+        String s = dto.getUsername() + "------adminLogin-------" + dto.getPassword();
         return s;
-    }
+    }*/
 }

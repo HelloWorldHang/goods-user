@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.List;
 /**
  * @author brady.si
  */
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Resource
@@ -29,12 +31,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     SysUserRoleMapper sysUserRoleMapper;
 
     @Override
-    public UserDetails loadUserByUsername(String nickname) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
 
         // 根据用户名从数据库中取出用户信息
         SysUserExample sysUserExample = new SysUserExample();
-        sysUserExample.createCriteria().andNicknameEqualTo(nickname);
+        sysUserExample.createCriteria().andNicknameEqualTo(username);
         List<SysUser> sysUsers = sysUserMapper.selectByExample(sysUserExample);
         // 判断用户是否存在
         if (sysUsers == null || sysUsers.size() == 0){

@@ -14,7 +14,7 @@ public class SysUserDTO {
     @NoArgsConstructor
     public static class LoginDTO{
 
-        private String nickname;
+        private String username;
 
         private String password;
     }

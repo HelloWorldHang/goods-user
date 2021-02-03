@@ -1,7 +1,6 @@
 package com.brady.user.config;
 
 import com.brady.user.service.impl.CustomUserDetailsService;
-import com.brady.user.utils.Md5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,31 +11,24 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.annotation.Resource;
-
-/**
- * @author brady.si
- */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Resource
+    @Autowired
     private CustomUserDetailsService userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(new PasswordEncoder() {
             @Override
-            public String encode(CharSequence rawPassword) {
-//                Md5.encodeByMD5(rawPassword.toString())
-                return rawPassword.toString();
+            public String encode(CharSequence charSequence) {
+                return charSequence.toString();
             }
 
             @Override
-            public boolean matches(CharSequence rawPassword, String encodePassword) {
-//                encodePassword.equals(Md5.encodeByMD5(rawPassword.toString()))
-                return rawPassword.toString().equals(encodePassword);
+            public boolean matches(CharSequence charSequence, String s) {
+                return s.equals(charSequence.toString());
             }
         });
     }
@@ -46,13 +38,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // 如果有允许匿名的url，填在下面
 //                .antMatchers().permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 // 设置登陆页
                 .formLogin().loginPage("/login")
                 // 设置登陆成功页
-                .defaultSuccessUrl("/loginSuccess").permitAll()
+                .defaultSuccessUrl("/").permitAll()
                 // 自定义登陆用户名和密码参数，默认为username和password
 //                .usernameParameter("username")
 //                .passwordParameter("password")

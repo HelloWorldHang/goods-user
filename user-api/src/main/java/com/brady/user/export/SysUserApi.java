@@ -5,6 +5,7 @@ import com.brady.user.dto.SysUserDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,28 +24,30 @@ public interface SysUserApi {
      * @param dto 接口入参
      * @return
      */
-    @ApiOperation(value = "登陆", response = Boolean.class)
+    /*@ApiOperation(value = "登陆", response = Boolean.class)
     @PostMapping(value = "/login", produces = APPLICATION_JSON_UTF8_VALUE, consumes = APPLICATION_JSON_UTF8_VALUE)
     boolean login(@Validated @RequestBody SysUserDTO.LoginDTO dto);
 
-    /**
+    *//**
      * 用户登陆
      *
      * @param dto 接口入参
      * @return
-     */
+     *//*
     @ApiOperation(value = "登陆", response = Boolean.class)
-    @PostMapping(value = "/user", produces = APPLICATION_JSON_UTF8_VALUE, consumes = APPLICATION_JSON_UTF8_VALUE)
-    String userLogin(@Validated @RequestBody SysUserDTO.LoginDTO dto);
+    @PostMapping(value = "/user")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    String userLogin(SysUserDTO.LoginDTO dto);
 
-    /**
+    *//**
      * 管理员登陆
      *
      * @param dto 接口入参
      * @return
-     */
+     *//*
     @ApiOperation(value = "登陆", response = Boolean.class)
     @PostMapping(value = "/admin", produces = APPLICATION_JSON_UTF8_VALUE, consumes = APPLICATION_JSON_UTF8_VALUE)
-    String adminLogin(@Validated @RequestBody SysUserDTO.LoginDTO dto);
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    String adminLogin(@Validated @RequestBody SysUserDTO.LoginDTO dto);*/
 
 }
