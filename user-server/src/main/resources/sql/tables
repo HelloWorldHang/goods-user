@@ -1,0 +1,21 @@
+CREATE TABLE `sys_role` (
+  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `sys_user` (
+  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `nickname` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '唯一，用户通过该字段登陆',
+  `addr` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `phone_num` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `sys_user_role` (
+  `user_id` int(8) NOT NULL DEFAULT '0',
+  `role_id` int(8) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
